@@ -1,5 +1,5 @@
 import Room from '../room/room.model.js';
-import LocationHistory from '../room/locationHistory.model.js';
+import History from '../history/history.model.js';
 
 const LOCATION_RATE_LIMIT_MS = 1000;
 const MIN_DISTANCE_METERS_FOR_HISTORY = 10; // 10 meters deadband to eliminate GPS drift/jitter
@@ -81,7 +81,7 @@ export const initLocationSocket = (io) => {
         if (roomId) {
           let lastPoint = lastSavedPoints.get(roomId);
           if (!lastPoint) {
-            lastPoint = await LocationHistory.findOne({ roomId }).sort({ timestamp: -1 });
+            lastPoint = await History.findOne({ roomId }).sort({ timestamp: -1 });
             if (lastPoint) {
               lastSavedPoints.set(roomId, {
                 latitude: lastPoint.latitude,
@@ -109,7 +109,7 @@ export const initLocationSocket = (io) => {
           }
 
           if (shouldSave) {
-            const historyEntry = await LocationHistory.create({
+            const historyEntry = await History.create({
               roomId,
               latitude: location.latitude,
               longitude: location.longitude,

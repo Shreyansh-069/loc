@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const locationHistorySchema = new mongoose.Schema({
+const historySchema = new mongoose.Schema({
   roomId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Room',
@@ -31,6 +31,7 @@ const locationHistorySchema = new mongoose.Schema({
   },
 });
 
-const LocationHistory = mongoose.model('LocationHistory', locationHistorySchema);
+const History = mongoose.models.LocationHistory || mongoose.model('LocationHistory', historySchema);
 
-export default LocationHistory;
+export { History as LocationHistory };
+export default History;

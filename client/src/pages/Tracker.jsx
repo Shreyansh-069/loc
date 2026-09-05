@@ -43,7 +43,7 @@ export default function Tracker() {
   useEffect(() => {
     if (!accessCode) return;
     const apiUrl = import.meta.env.VITE_API_URL || '';
-    fetch(`${apiUrl}/api/access/history?accessCode=${encodeURIComponent(accessCode)}`)
+    fetch(`${apiUrl}/api/history?accessCode=${encodeURIComponent(accessCode)}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success && Array.isArray(data.history)) {
